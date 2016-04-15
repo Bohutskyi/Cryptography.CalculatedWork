@@ -329,4 +329,11 @@ public class PolynomialBasis {
         return result;
     }
 
+//    public static void main(String[] args) {
+//        PolynomialBasis basis = new PolynomialBasis();
+//        basis.print();
+//        System.out.println();
+//        basis.getGenerator().print();
+//    }
+
 }
