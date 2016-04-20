@@ -39,7 +39,6 @@ public class ReaderThread implements Runnable {
     }
 
     public BlockingQueue<String> getBlockingQueue() {
-        this.run();
         return blockingQueue;
     }
 

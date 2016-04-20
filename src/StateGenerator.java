@@ -1,22 +1,27 @@
-import java.io.FileWriter;
-import java.io.IOException;
+import threadStream.WriterThread;
+
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 public class StateGenerator {
 
     public static void generate(int n, int length, String fileName) {
-        try (FileWriter writer = new FileWriter(fileName, false)) {
+        new Thread( new WriterThread( () -> {
+            BlockingQueue<String> queue = new ArrayBlockingQueue<>(n);
             for (int i = 0; i < n; i++) {
                 StringBuilder result = new StringBuilder();
                 result.append(Integer.toBinaryString(i));
                 while (result.length() < length) {
                     result.insert(0, '0');
                 }
-                writer.write(result + "\n");
+                try {
+                    queue.put(result.toString());
+                } catch (InterruptedException e) {
+                    System.out.println(e.getMessage());
+                }
             }
-            writer.close();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+            return queue;
+        }, fileName)).start();
     }
 
     public static void main(String[] args) {
