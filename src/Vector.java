@@ -1,5 +1,7 @@
 public class Vector {
 
+    private static final int N = 17;
+
     private byte[] vector;
 
     public Vector(String s) {
@@ -9,8 +11,8 @@ public class Vector {
         }
     }
 
-    public Vector(int n) {
-        this.vector = new byte[n];
+    public Vector() {
+        this.vector = new byte[N];
     }
 
     @Override
@@ -29,7 +31,8 @@ public class Vector {
     }
 
     public static Vector addition(Vector vector1, Vector vector2) {
-        Vector result = new Vector(vector1.vector.length);
+//        Vector result = new Vector(vector1.vector.length);
+        Vector result = new Vector();
         for (int i = 0; i < result.vector.length; i++) {
             result.vector[i] = (byte) (vector1.vector[i] ^ vector2.vector[i]);
         }
