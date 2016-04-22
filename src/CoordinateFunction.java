@@ -356,6 +356,43 @@ public class CoordinateFunction {
         }
     }
 
+    public static void calculateAllRelativeDeviations(String fileName, String destination) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String buffer;
+            int count = 0;
+            while (((buffer = reader.readLine()) != null) && (count != n)) {
+                count++;
+                ArrayList<String> arrayList = new ArrayList<>();
+                int k = 0;
+                for (String s : buffer.trim().split(" ")) {
+                    if (k != 0) {
+                        arrayList.add(String.format("%.3f", calculateRelativeDeviation(Integer.parseInt(s))));
+                    }
+                    k++;
+                }
+                arrayList.add(0, "F[" + count + "]:");
+                appending(destination, arrayList);
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static double calculateRelativeDeviation(int i) {
+        return Math.abs(i - n * Math.pow(2, n - 1)) / (n * Math.pow(2, n - 1));
+    }
+
+    public static void appending(String fileName, ArrayList arrayList) {
+        try (FileWriter writer = new FileWriter(fileName, true)) {
+            for (int i = 0; i < arrayList.size(); i++) {
+                writer.write(arrayList.get(i) + " ");
+            }
+            writer.write("\n");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
         //Для обчлення АНФ
 //        String fileName = "Results/BooleanFunction1/CoordinateFunction";
@@ -400,7 +437,10 @@ public class CoordinateFunction {
 //        calculateAllPropagationRatesForAllFunctions("Results/BooleanFunction1/CoordinateFunction", "Results/BooleanFunction1/PropagationRates1.txt");
 //        calculateAllPropagationRatesForAllFunctions("Results/BooleanFunction2/CoordinateFunction", "Results/BooleanFunction2/PropagationRates2.txt");
 
-        
+        //Обчислення відносного відхилення
+//        calculateAllRelativeDeviations("Results/BooleanFunction1/PropagationRates1.txt", "Results/BooleanFunction1/PropagationRates1.txt");
+        calculateAllRelativeDeviations("Results/BooleanFunction2/PropagationRates2.txt", "Results/BooleanFunction2/PropagationRates2.txt");
+
     }
 
 }
