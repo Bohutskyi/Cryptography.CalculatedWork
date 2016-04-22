@@ -1,4 +1,3 @@
-import convert.Convert;
 import threadStream.ReaderThread;
 import threadStream.WriterThread;
 
@@ -8,6 +7,8 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 public class CoordinateFunction {
+
+    private static final int n = 17;
 
 //    private CopyOnWriteArrayList<String> arrayList = new CopyOnWriteArrayList<>();
     private String fileName;
@@ -306,6 +307,55 @@ public class CoordinateFunction {
         }
     }
 
+    public int calculatePropagationRate(int i) {
+        int result = 0;
+        for (int j = 0; j < 131072; j++) {
+            //f(x)
+            String temp = (arrayList.get(j));
+
+            //set x + ei
+            String vector;
+            if (getBinaryValue(j, 17).charAt(i) == '1') {
+                vector = replace(getBinaryValue(j, 17), i, '0');
+            } else {
+                vector = replace(getBinaryValue(j, 17), i, '1');
+            }
+
+            //f(x) + f(x+ei)
+            temp = additionByMod(temp, arrayList.get(Integer.parseInt(vector, 2)));
+
+            result += Integer.parseInt(temp, 2);
+        }
+        return result;
+    }
+
+    public ArrayList<Integer> calculateAllPropagationRates() {
+        ArrayList<Integer> results = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            results.add(calculatePropagationRate(i));
+        }
+        return results;
+    }
+
+    public static void calculateAllPropagationRatesForAllFunctions(String sourceFileName, String destinationFileName) {
+        try {
+            FileWriter writer = new FileWriter(destinationFileName);
+            for (int i = 0; i < n; i++) {
+                StringBuilder temp = new StringBuilder(sourceFileName);
+                temp.append((i + 1) + ".txt");
+                CoordinateFunction coordinateFunction = new CoordinateFunction(temp.toString());
+                writer.write("F[" + (i + 1) + "]: ");
+                for (int k : coordinateFunction.calculateAllPropagationRates()) {
+                    writer.write(k + " ");
+                }
+                writer.write("\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
         //Для обчлення АНФ
 //        String fileName = "Results/BooleanFunction1/CoordinateFunction";
@@ -342,9 +392,15 @@ public class CoordinateFunction {
 //        calculateAllNonlinearlities("Results/BooleanFunction1/Imbalance1.txt", "Results/BooleanFunction1/CoordinateFunction", 17);
 //        calculateAllNonlinearlities("Results/BooleanFunction2/Imbalance2.txt", "Results/BooleanFunction2/CoordinateFunction", 17);
 
+//        CoordinateFunction coordinateFunction = new CoordinateFunction("Results/BooleanFunction1/CoordinateFunction1.txt");
+//        coordinateFunction.calculatePropagationRate(0);
+//        System.out.println(coordinateFunction.calculateAllPropagationRates());
+
+        //Обчислення коефів розповсюдження помилок
+//        calculateAllPropagationRatesForAllFunctions("Results/BooleanFunction1/CoordinateFunction", "Results/BooleanFunction1/PropagationRates1.txt");
+//        calculateAllPropagationRatesForAllFunctions("Results/BooleanFunction2/CoordinateFunction", "Results/BooleanFunction2/PropagationRates2.txt");
+
         
-
-
     }
 
 }
