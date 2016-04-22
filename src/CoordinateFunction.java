@@ -257,6 +257,55 @@ public class CoordinateFunction {
         }
     }
 
+    public static ArrayList<Integer> calculateNonlinearity(String fileName, int n) {
+        ArrayList<Integer> results = new ArrayList<>();
+        for (int i = 1; i<= n; i++) {
+            StringBuilder temp = new StringBuilder(fileName);
+            temp.append(i + ".txt");
+            int max = 0;
+            CoordinateFunction coordinateFunction = new CoordinateFunction(temp.toString());
+            for (int k : coordinateFunction.fastConversionWalsh()) {
+                if (Math.abs(k) > max) {
+                    max = Math.abs(k);
+                }
+            }
+//            System.out.println("max = " + max);
+            results.add((int) Math.pow(2, 16) - max / 2);
+        }
+        return results;
+    }
+
+    public static void calculateAllNonlinearlities(String finalFileName, String fileName, int n) {
+        reWrite(finalFileName, calculateNonlinearity(fileName, n));
+
+    }
+
+    public static void deleteLastColumn(String fileName) {
+        File inputFile = new File(fileName);
+        String tempFileName = "Results/BooleanFunction1/temp.txt";
+        File outputFile = new File(tempFileName);
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+            FileWriter writer = new FileWriter(outputFile);
+            String buffer;
+            while ((buffer = reader.readLine()) != null) {
+                String[] temp = buffer.split(" ");
+                for (int i = 0; i < temp.length - 1; i++) {
+                    writer.write(temp[i] + " ");
+                }
+                writer.write("\n");
+            }
+            reader.close();
+            writer.close();
+            inputFile.delete();
+            boolean t = outputFile.renameTo(inputFile);
+            System.out.println(t);
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
         //Для обчлення АНФ
 //        String fileName = "Results/BooleanFunction1/CoordinateFunction";
@@ -283,10 +332,18 @@ public class CoordinateFunction {
         //Обчислення дисбалансу
 //        calculateHadamardCoefficient("Results/BooleanFunction1/CoordinateFunction", 17, "Results/BooleanFunction1/Imbalance1.txt");
 //        calculateHadamardCoefficient("Results/BooleanFunction2/CoordinateFunction", 17, "Results/BooleanFunction2/Imbalance2.txt");
-        
+
         //Обчислення коефі уолша
 //        AllFastConversionWalsh("Results/BooleanFunction1/CoordinateFunction", 17);
 //        AllFastConversionWalsh("Results/BooleanFunction2/CoordinateFunction", 17);
+
+//        System.out.println(calculateNonlinearity("Results/BooleanFunction1/CoordinateFunction", 17));
+        //Обчислення нелінійностей
+//        calculateAllNonlinearlities("Results/BooleanFunction1/Imbalance1.txt", "Results/BooleanFunction1/CoordinateFunction", 17);
+//        calculateAllNonlinearlities("Results/BooleanFunction2/Imbalance2.txt", "Results/BooleanFunction2/CoordinateFunction", 17);
+
+        
+
 
     }
 
