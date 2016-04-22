@@ -2,42 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eeaaf079-30e1-4bab-8646-37185506a138" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/CalculatedWork/CoordinateFunction.class" afterPath="$PROJECT_DIR$/out/production/CalculatedWork/CoordinateFunction.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction1.txt" afterPath="$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction1.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction10.txt" afterPath="$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction10.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction11.txt" afterPath="$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction11.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction12.txt" afterPath="$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction12.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction13.txt" afterPath="$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction13.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction14.txt" afterPath="$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction14.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction15.txt" afterPath="$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction15.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction16.txt" afterPath="$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction16.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction17.txt" afterPath="$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction17.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction2.txt" afterPath="$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction2.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction3.txt" afterPath="$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction3.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction4.txt" afterPath="$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction4.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction5.txt" afterPath="$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction5.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction6.txt" afterPath="$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction6.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction7.txt" afterPath="$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction7.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction8.txt" afterPath="$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction8.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction9.txt" afterPath="$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction9.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction1.txt" afterPath="$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction1.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction10.txt" afterPath="$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction10.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction11.txt" afterPath="$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction11.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction12.txt" afterPath="$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction12.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction13.txt" afterPath="$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction13.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction14.txt" afterPath="$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction14.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction15.txt" afterPath="$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction15.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction16.txt" afterPath="$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction16.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction17.txt" afterPath="$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction17.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction2.txt" afterPath="$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction2.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction3.txt" afterPath="$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction3.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction4.txt" afterPath="$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction4.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction5.txt" afterPath="$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction5.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction6.txt" afterPath="$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction6.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction7.txt" afterPath="$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction7.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction8.txt" afterPath="$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction8.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction9.txt" afterPath="$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction9.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoordinateFunction.java" afterPath="$PROJECT_DIR$/src/CoordinateFunction.java" />
     </list>
     <ignored path="CalculatedWork.iws" />
@@ -88,10 +52,11 @@
       <file leaf-file-name="CoordinateFunction.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/CoordinateFunction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.9622642">
-              <caret line="66" column="49" selection-start-line="66" selection-start-column="49" selection-end-line="66" selection-end-column="49" />
+            <state vertical-scroll-proportion="0.62222224">
+              <caret line="181" column="25" selection-start-line="181" selection-start-column="25" selection-end-line="181" selection-end-column="25" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#648#656#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -616,7 +581,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -624,10 +589,10 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5030257" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21767594" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21767594" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2397882" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2397882" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -661,22 +626,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/State.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="102" column="5" selection-start-line="102" selection-start-column="5" selection-end-line="102" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/PolynomialBasis.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="63" column="38" selection-start-line="63" selection-start-column="38" selection-end-line="63" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/BooleanFunction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -998,14 +947,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction1.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="131072" column="0" selection-start-line="131072" selection-start-column="0" selection-end-line="131072" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Results/BooleanFunction2/CoordinateFunction7.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1062,12 +1003,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Results/BooleanFunction1/CoordinateFunction1.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8250429">
+          <caret line="131072" column="0" selection-start-line="131072" selection-start-column="0" selection-end-line="131072" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Results/BooleanFunction1/Imbalance1.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6422222">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Results/BooleanFunction2/Imbalance2.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/CoordinateFunction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9622642">
-          <caret line="66" column="49" selection-start-line="66" selection-start-column="49" selection-end-line="66" selection-end-column="49" />
+        <state vertical-scroll-proportion="0.62222224">
+          <caret line="181" column="25" selection-start-line="181" selection-start-column="25" selection-end-line="181" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#648#656#0" expanded="true" />
           </folding>
         </state>
       </provider>

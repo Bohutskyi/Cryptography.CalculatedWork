@@ -1,6 +1,8 @@
 import threadStream.ReaderThread;
 import threadStream.WriterThread;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -8,9 +10,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class CoordinateFunction {
 
-    private CopyOnWriteArrayList<String> arrayList = new CopyOnWriteArrayList<>();
+//    private CopyOnWriteArrayList<String> arrayList = new CopyOnWriteArrayList<>();
+    private String fileName;
+    private ArrayList<String> arrayList = new ArrayList<>();
 
     public CoordinateFunction(String fileName) {
+        this.fileName = fileName;
         BlockingQueue<String> queue = new ArrayBlockingQueue<String>(131072);
         Thread thread = new Thread(new ReaderThread(queue, fileName));
         thread.start();
@@ -19,11 +24,18 @@ public class CoordinateFunction {
         } catch (InterruptedException e) {
             System.out.println(e.getMessage());
         }
-        arrayList = new CopyOnWriteArrayList<>(queue);
+//        arrayList = new CopyOnWriteArrayList<>(queue);
+        for (int i = 0; i < queue.size(); i++) {
+            try {
+                arrayList.add(queue.take().split("")[0]);
+            } catch (InterruptedException e) {
+                System.out.println(e.getMessage());
+            }
+        }
         queue = null;
     }
 
-    public ArrayList<String> calculateAlgebraicNormalForm(String fileName) {
+    public ArrayList<String> calculateAlgebraicNormalForm() {
         ArrayList<String> result = new ArrayList<>(arrayList);
         ArrayList<Boolean> booleanArrayList = new ArrayList<>();
         for (int i = 0; i < this.arrayList.size(); i++) {
@@ -115,23 +127,60 @@ public class CoordinateFunction {
         return result.toString();
     }
 
+    public int getHadamardCoefficient() {
+        int result = 0;
+        for (int i = 0; i < arrayList.size(); i++) {
+            result += Math.pow(-1, Integer.parseInt(arrayList.get(i)));
+        }
+        return result;
+    }
+
+    public static void calculateHadamardCoefficient(String fileName, int n, String destinationFileName) {
+        int[] results = new int[n];
+        for (int i = 1; i <= n; i++) {
+            CoordinateFunction coordinateFunction = new CoordinateFunction(fileName + i + ".txt");
+            results[i - 1] = coordinateFunction.getHadamardCoefficient();
+        }
+        try (FileWriter writer = new FileWriter(destinationFileName)) {
+            int count = 0;
+            for (int i : results) {
+                count++;
+                if (count < 10) {
+                    writer.write("C( " + count + ")[0] = " + i + "\n");
+                } else {
+                    writer.write("C(" + count + ")[0] = " + i + "\n");
+                }
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
-        String fileName = "Results/BooleanFunction1/CoordinateFunction";
-        for (int i = 1; i <= 17; i++) {
-            StringBuilder s = new StringBuilder(fileName);
-            s.append(i);
-            s.append(".txt");
-            CoordinateFunction coordinateFunction = new CoordinateFunction(s.toString());
-            coordinateFunction.calculateAlgebraicNormalForm(s.toString());
-        }
-        fileName = "Results/BooleanFunction2/CoordinateFunction";
-        for (int i = 1; i <= 17; i++) {
-            StringBuilder s = new StringBuilder(fileName);
-            s.append(i);
-            s.append(".txt");
-            CoordinateFunction coordinateFunction = new CoordinateFunction(s.toString());
-            coordinateFunction.calculateAlgebraicNormalForm(s.toString());
-        }
+        //Для обчлення АНФ
+//        String fileName = "Results/BooleanFunction1/CoordinateFunction";
+//        for (int i = 1; i <= 17; i++) {
+//            StringBuilder s = new StringBuilder(fileName);
+//            s.append(i);
+//            s.append(".txt");
+//            CoordinateFunction coordinateFunction = new CoordinateFunction(s.toString());
+//            coordinateFunction.calculateAlgebraicNormalForm(s.toString());
+//        }
+//        fileName = "Results/BooleanFunction2/CoordinateFunction";
+//        for (int i = 1; i <= 17; i++) {
+//            StringBuilder s = new StringBuilder(fileName);
+//            s.append(i);
+//            s.append(".txt");
+//            CoordinateFunction coordinateFunction = new CoordinateFunction(s.toString());
+//            coordinateFunction.calculateAlgebraicNormalForm(s.toString());
+//        }
+
+//        CoordinateFunction coordinateFunction = new CoordinateFunction("Results/BooleanFunction1/CoordinateFunction1.txt");
+//        System.out.println(coordinateFunction.arrayList);
+//        System.out.println(coordinateFunction.getHadamardCoefficient());
+        calculateHadamardCoefficient("Results/BooleanFunction1/CoordinateFunction", 17, "Results/BooleanFunction1/Imbalance1.txt");
+        calculateHadamardCoefficient("Results/BooleanFunction2/CoordinateFunction", 17, "Results/BooleanFunction2/Imbalance2.txt");
     }
 
 }
