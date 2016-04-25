@@ -450,6 +450,39 @@ public class CoordinateFunction {
         }
     }
 
+    public static int[] getAlgebraicDegree(String fileName) {
+        return f2(17, new CoordinateFunction(fileName, 1).arrayList);
+    }
+
+    private static int[] f2(int n, ArrayList<String> arrayList) {
+        for (int i = 0; i < 131072; i++) {
+            if (getWeight(i) == n) {
+                if (arrayList.get(i).equals("1")) {
+                    return new int [] {n, i};
+                }
+            }
+        }
+        return f2(n - 1, arrayList);
+    }
+
+    public static void calculateAllAlgebraicDegrees(String source, String destination, int n) {
+        ArrayList<int[]> results = new ArrayList<>();
+        for (int i = 1; i <= n; i++) {
+            StringBuilder temp = new StringBuilder(source);
+            temp.append(i + ".txt");
+            results.add(getAlgebraicDegree(temp.toString()));
+        }
+        try (FileWriter writer = new FileWriter(destination)) {
+            int count = 1;
+            for (int [] i : results) {
+                writer.write("[" + count + "] : " + i[0] + " on position " + i[1] + "\n");
+                count++;
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
         //Для обчлення АНФ
 //        String fileName = "Results/BooleanFunction1/CoordinateFunction";
@@ -503,6 +536,13 @@ public class CoordinateFunction {
 //        calculateAllCorrelationImmunityLevel("Results/BooleanFunction1/CoordinateFunction", "Results/BooleanFunction1/CorrelationImmunityLevel1.txt", 17);
 //        calculateAllCorrelationImmunityLevel("Results/BooleanFunction2/CoordinateFunction", "Results/BooleanFunction2/CorrelationImmunityLevel2.txt", 17);
 
+//        System.out.println(getAlgebraicDegree("Results/BooleanFunction1/CoordinateFunction1.txt"));
+//        for (int i : getAlgebraicDegree("Results/BooleanFunction1/CoordinateFunction1.txt")) {
+//            System.out.println(i);
+//        }
+        //Алгебраїчні степені
+//        calculateAllAlgebraicDegrees("Results/BooleanFunction1/CoordinateFunction", "Results/BooleanFunction1/AlgebraicDegrees1.txt", 17);
+//        calculateAllAlgebraicDegrees("Results/BooleanFunction2/CoordinateFunction", "Results/BooleanFunction2/AlgebraicDegrees2.txt", 17);
 
     }
 
