@@ -52,6 +52,12 @@ public class BooleanFunction {
         }
     }
 
+    /****************************************************************************************************************/
+
+    public static void calculatePropagationRates(String fileName) {
+
+    }
+
     public static void main(String[] args) {
         BooleanFunction function = new BooleanFunction(131070, "Results/truthTable3.txt");
         function.calculateTruthTable();

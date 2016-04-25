@@ -370,7 +370,7 @@ public class CoordinateFunction {
                 int k = 0;
                 for (String s : buffer.trim().split(" ")) {
                     if (k != 0) {
-                        arrayList.add(String.format("%.3f", calculateRelativeDeviation(Integer.parseInt(s))));
+                        arrayList.add(String.format("%.3f", 100 * calculateRelativeDeviation(Integer.parseInt(s))));
                     }
                     k++;
                 }
@@ -383,7 +383,7 @@ public class CoordinateFunction {
     }
 
     public static double calculateRelativeDeviation(int i) {
-        return Math.abs(i - n * Math.pow(2, n - 1)) / (n * Math.pow(2, n - 1));
+        return Math.abs(i - Math.pow(2, n - 1)) / (Math.pow(2, n - 1));
     }
 
     public static void appending(String fileName, ArrayList arrayList) {
