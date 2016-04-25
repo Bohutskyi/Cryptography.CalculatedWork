@@ -135,6 +135,46 @@ public class BooleanFunction {
         return Math.abs(d - n * Math.pow(2, n - 1)) / (n * Math.pow(2, n - 1));
     }
 
+    public static boolean KroneckerDelta(String s1, String s2) {
+        for (int i = 0; i < s1.length(); i++) {
+            if (s1.charAt(i) != s2.charAt(i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static String Derivative(String x, String a, ArrayList<String> arrayList) {
+        String temp = arrayList.get(Integer.parseInt(x, 2));
+        String temp2 = arrayList.get(Integer.parseInt(CoordinateFunction.additionByMod(x, a), 2));
+        return CoordinateFunction.additionByMod(temp, temp2);
+    }
+
+    public static double calculateDifferentialProbability(String a, String b, ArrayList<String> arrayList) {
+        int result = 0;
+        for (int i = 0; i < 131072; i++) {
+            if (KroneckerDelta(Derivative(CoordinateFunction.getBinaryValue(i, 17), a, arrayList), b)) {
+                result++;
+            }
+        }
+        return result * 1. / Math.pow(2, n);
+    }
+
+    public static double maxDifferentialProbability(String fileName) {
+        CoordinateFunction coordinateFunction = new CoordinateFunction(fileName, 1);
+        double max = 0;
+        for (int i = 0; i < 131072; i++) {
+            System.out.println("i = " + i);
+            for (int j = 0; j < 131072; j++) {
+                double temp = calculateDifferentialProbability(CoordinateFunction.getBinaryValue(i, 17), CoordinateFunction.getBinaryValue(j, 17), coordinateFunction.getArrayList());
+                if (temp > max) {
+                    max = temp;
+                }
+            }
+        }
+        return max;
+    }
+
     public static void main(String[] args) {
         //обчислення таблиць істиності
 //        BooleanFunction function = new BooleanFunction(131070, "Results/truthTable1.txt");
@@ -154,6 +194,8 @@ public class BooleanFunction {
 //        calculateRelativeDeviation("Results/GeneralAnalysis2.txt");
 
         //
+
+        maxDifferentialProbability("Results/truthTable1.txt");
 
 
     }
