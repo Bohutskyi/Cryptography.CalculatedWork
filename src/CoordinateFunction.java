@@ -48,6 +48,10 @@ public class CoordinateFunction {
         queue = null;
     }
 
+    public ArrayList<String> getArrayList() {
+        return arrayList;
+    }
+
     public ArrayList<String> calculateAlgebraicNormalForm() {
         ArrayList<String> result = new ArrayList<>(arrayList);
         ArrayList<Boolean> booleanArrayList = new ArrayList<>();
@@ -454,7 +458,7 @@ public class CoordinateFunction {
 //            s.append(i);
 //            s.append(".txt");
 //            CoordinateFunction coordinateFunction = new CoordinateFunction(s.toString());
-//            coordinateFunction.calculateAlgebraicNormalForm(s.toString());
+//            coordinateFunction.calculateAlgebraicNormalForm();
 //        }
 //        fileName = "Results/BooleanFunction2/CoordinateFunction";
 //        for (int i = 1; i <= 17; i++) {
@@ -462,7 +466,7 @@ public class CoordinateFunction {
 //            s.append(i);
 //            s.append(".txt");
 //            CoordinateFunction coordinateFunction = new CoordinateFunction(s.toString());
-//            coordinateFunction.calculateAlgebraicNormalForm(s.toString());
+//            coordinateFunction.calculateAlgebraicNormalForm();
 //        }
 
 //        CoordinateFunction coordinateFunction = new CoordinateFunction("Results/BooleanFunction1/CoordinateFunction1.txt");
@@ -473,7 +477,7 @@ public class CoordinateFunction {
 //        calculateHadamardCoefficient("Results/BooleanFunction1/CoordinateFunction", 17, "Results/BooleanFunction1/Imbalance1.txt");
 //        calculateHadamardCoefficient("Results/BooleanFunction2/CoordinateFunction", 17, "Results/BooleanFunction2/Imbalance2.txt");
 
-        //Обчислення коефі уолша
+        //Обчислення коефи уолша
 //        AllFastConversionWalsh("Results/BooleanFunction1/CoordinateFunction", 17);
 //        AllFastConversionWalsh("Results/BooleanFunction2/CoordinateFunction", 17);
 

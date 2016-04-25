@@ -233,6 +233,17 @@ public class State {
             }
             a = State.multiplication(a, a);
         }
+//        result = mod(result);
+//        while (cmp(result, new State(generator)) == -1) {
+        while (result.array.size() >= generator.size()) {
+//            System.out.println("result = " + result);
+            result = sub(result, new State(generator));
+//            System.out.println(result);
+            while (result.array.get(0) == 0) {
+                result.array.remove(0);
+            }
+//            System.out.println(result);
+        }
         return result;
     }
 
@@ -245,6 +256,18 @@ public class State {
         print(State.addition(state, state2));
         System.out.println();
         print(generator);
+        /**/
+        System.out.println("--------------");
+        System.out.println(cmp(new State("1011"), new State(generator)));
+        System.out.println("--------------");
+        System.out.println();
+        state = new State("00101110010111000");
+        int power = 131070;
+        ArrayList<Integer> tempPower = new ArrayList<>();
+        for (String t : Integer.toBinaryString(power).split("")) {
+            tempPower.add(Integer.parseInt(t));
+        }
+        System.out.println(power(state, tempPower));
     }
 
 }
