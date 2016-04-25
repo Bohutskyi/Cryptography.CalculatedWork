@@ -15,6 +15,11 @@ public class CoordinateFunction {
     private ArrayList<String> arrayList = new ArrayList<>();
 
     public CoordinateFunction(String fileName) {
+        this(fileName, 0);
+    }
+
+//    public CoordinateFunction(String fileName) {
+    public CoordinateFunction(String fileName, int k) {
         this.fileName = fileName;
         BlockingQueue<String> queue = new ArrayBlockingQueue<>(131072);
         Thread thread = new Thread(new ReaderThread(queue, fileName));
@@ -24,11 +29,10 @@ public class CoordinateFunction {
         } catch (InterruptedException e) {
             System.out.println(e.getMessage());
         }
-//        arrayList = new CopyOnWriteArrayList<>(queue);
-//        System.out.println("here1: " + queue.size());
         arrayList = new ArrayList<>(queue);
         for (int i = 0; i < arrayList.size(); i++ ){
-            arrayList.set(i, arrayList.get(i).split("")[0]);
+//            arrayList.set(i, arrayList.get(i).split("")[0]);
+            arrayList.set(i, arrayList.get(i).split(" ")[k]);
         }
 //        for (int i = 0; i < queue.size(); i++) {
 //            try {
@@ -393,6 +397,55 @@ public class CoordinateFunction {
         }
     }
 
+    public static int getWeight(String s) {
+        int result = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '1') {
+                result++;
+            }
+        }
+        return result;
+    }
+
+    public static int getWeight(int i) {
+        return getWeight(Integer.toBinaryString(i));
+    }
+
+
+    public static int getCorrelationImmunityLevel(String fileName) {
+        CoordinateFunction coordinateFunction = new CoordinateFunction(fileName, 2);
+        return f(0, coordinateFunction.arrayList);
+    }
+
+    private static int f(int i, ArrayList<String> arrayList) {
+        for (int k = 0; k < 131072; k++) {
+            if (getWeight(k) == (i + 1)) {
+                if (!arrayList.get(k).equals("0")) {
+                    return i;
+                }
+            }
+        }
+        return f(i + 1, arrayList);
+    }
+
+    public static void calculateAllCorrelationImmunityLevel(String fileName, String destination, int n) {
+        ArrayList<Integer> results = new ArrayList<>();
+        for (int i = 1; i <= n; i++) {
+            StringBuilder temp = new StringBuilder(fileName);
+            temp.append(i + ".txt");
+            results.add(getCorrelationImmunityLevel(temp.toString()));
+        }
+        try (FileWriter writer = new FileWriter(destination)) {
+            int count = 1;
+            for (int i : results) {
+                writer.write("Correlation Immunity Level [" + count + "] = " + i + "\n");
+                count++;
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
         //Для обчлення АНФ
 //        String fileName = "Results/BooleanFunction1/CoordinateFunction";
@@ -439,7 +492,13 @@ public class CoordinateFunction {
 
         //Обчислення відносного відхилення
 //        calculateAllRelativeDeviations("Results/BooleanFunction1/PropagationRates1.txt", "Results/BooleanFunction1/PropagationRates1.txt");
-        calculateAllRelativeDeviations("Results/BooleanFunction2/PropagationRates2.txt", "Results/BooleanFunction2/PropagationRates2.txt");
+//        calculateAllRelativeDeviations("Results/BooleanFunction2/PropagationRates2.txt", "Results/BooleanFunction2/PropagationRates2.txt");
+
+//        System.out.println(getCorrelationImmunityLevel("Results/BooleanFunction1/CoordinateFunction1.txt"));
+        //обчислення кореляційного імунітету
+//        calculateAllCorrelationImmunityLevel("Results/BooleanFunction1/CoordinateFunction", "Results/BooleanFunction1/CorrelationImmunityLevel1.txt", 17);
+//        calculateAllCorrelationImmunityLevel("Results/BooleanFunction2/CoordinateFunction", "Results/BooleanFunction2/CorrelationImmunityLevel2.txt", 17);
+
 
     }
 

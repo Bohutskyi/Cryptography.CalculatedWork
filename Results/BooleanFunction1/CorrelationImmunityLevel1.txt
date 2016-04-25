@@ -1,0 +1,17 @@
+Correlation Immunity Level [1] = 0
+Correlation Immunity Level [2] = 0
+Correlation Immunity Level [3] = 0
+Correlation Immunity Level [4] = 0
+Correlation Immunity Level [5] = 0
+Correlation Immunity Level [6] = 0
+Correlation Immunity Level [7] = 0
+Correlation Immunity Level [8] = 0
+Correlation Immunity Level [9] = 0
+Correlation Immunity Level [10] = 0
+Correlation Immunity Level [11] = 0
+Correlation Immunity Level [12] = 0
+Correlation Immunity Level [13] = 0
+Correlation Immunity Level [14] = 0
+Correlation Immunity Level [15] = 0
+Correlation Immunity Level [16] = 0
+Correlation Immunity Level [17] = 0
