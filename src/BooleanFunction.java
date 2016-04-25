@@ -10,6 +10,8 @@ import java.util.concurrent.BlockingQueue;
 
 public class BooleanFunction {
 
+    private static final int n = 17;
+
     private final int power;
     private String fileName;
     private static final int m = 17;
@@ -77,20 +79,60 @@ public class BooleanFunction {
     public static int calculatePropagationRate(String fileName, int n) {
         ArrayList<String> arrayList = new CoordinateFunction(fileName, 1).getArrayList();
         int result = 0;
-        for (int i = 0; i < arrayList.size(); i++) {
-            String u0 = arrayList.get(i);
+        for (int i = 0; i < 131072; i++) {
             String u1;
-            if (CoordinateFunction.getBinaryValue(n, 17).charAt(n) == '1') {
+//            System.out.println(CoordinateFunction.getBinaryValue(i, 17));
+//            System.out.println("n = " + n);
+            if (CoordinateFunction.getBinaryValue(i, 17).charAt(n) == '1') {
                 u1 = CoordinateFunction.replace(CoordinateFunction.getBinaryValue(i, 17), n, '0');
             } else {
                 u1 = CoordinateFunction.replace(CoordinateFunction.getBinaryValue(i, 17), n, '1');
             }
-//            System.out.println("u0 = " + u0);
-//            String temp = CoordinateFunction.additionByMod(arrayList.get(i), arrayList.get(Integer.parseInt(u1, 2)));
-            String temp = CoordinateFunction.additionByMod(u0, arrayList.get(Integer.parseInt(u1, 2)));
+            String temp = CoordinateFunction.additionByMod(arrayList.get(i), arrayList.get(Integer.parseInt(u1, 2)));
             result += CoordinateFunction.getWeight(temp);
         }
         return result;
+    }
+
+    public static void calculateAllPropagationRates(String source, String destination, int n) {
+        ArrayList<Integer> results = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            results.add(calculatePropagationRate(source, i));
+        }
+        try (FileWriter writer = new FileWriter(destination)) {
+            int count = 1;
+            for (int i : results) {
+                writer.write("[" + count + "] = " + i + "\n");
+                count++;
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void calculateRelativeDeviation(String fileName) {
+        ArrayList<Double> temp = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String buffer;
+            while ((buffer = reader.readLine()) != null) {
+                temp.add(Double.parseDouble(buffer.trim().split(" ")[2]));
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        for (int i = 0; i < temp.size(); i++) {
+            //String.format("%.3f", 100 * calculateRelativeDeviation(Integer.parseInt(s)))
+            temp.set(i, calculateSingleRelativeDeviation(temp.get(i)));
+        }
+        ArrayList<String> results = new ArrayList<>();
+        while (temp.size() != 0) {
+            results.add(String.format("%.3f", 100 * temp.remove(0)));
+        }
+        CoordinateFunction.reWrite(fileName, results);
+    }
+
+    public static double calculateSingleRelativeDeviation(double d) {
+        return Math.abs(d - n * Math.pow(2, n - 1)) / (n * Math.pow(2, n - 1));
     }
 
     public static void main(String[] args) {
@@ -100,9 +142,19 @@ public class BooleanFunction {
 //        function = new BooleanFunction(131069, "Results/truthTable2.txt");
 //        function.calculateTruthTable();
 
-//        System.out.println(calculatePropagationRate("Results/temp.txt", 0));
+
 //        System.out.println(calculatePropagationRate("Results/truthTable1.txt", 0));
 //        System.out.println(calculatePropagationRate("Results/truthTable2.txt", 0));
+        //Розповсюдження помилок
+//        calculateAllPropagationRates("Results/truthTable1.txt", "Results/GeneralAnalysis1.txt", 17);
+//        calculateAllPropagationRates("Results/truthTable2.txt", "Results/GeneralAnalysis2.txt", 17);
+
+        //Відносне відхилення
+//        calculateRelativeDeviation("Results/GeneralAnalysis1.txt");
+//        calculateRelativeDeviation("Results/GeneralAnalysis2.txt");
+
+        //
+
 
     }
 
