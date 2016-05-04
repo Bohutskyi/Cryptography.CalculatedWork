@@ -30,6 +30,7 @@ public class StateGenerator {
 
     public static void main(String[] args) {
         generate(131072, 17, "Results/states.txt");
+//        generate(65536, 16, "Results/Vanya special/states.txt");
     }
 
 }

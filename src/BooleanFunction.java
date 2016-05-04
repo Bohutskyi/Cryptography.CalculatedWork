@@ -11,10 +11,13 @@ import java.util.concurrent.BlockingQueue;
 public class BooleanFunction {
 
     private static final int n = 17;
+//    private static final int n = 16;
+    private static final int MAX = 131072;
+//    private static final int MAX = 65536;
 
     private final int power;
     private String fileName;
-    private static final int m = 17;
+//    private static final int m = 17;
 
     public BooleanFunction(int power, String fileName) {
         this.power = power;
@@ -26,7 +29,8 @@ public class BooleanFunction {
     //?????
     public void calculateTruthTable() {
         new Thread(new WriterThread(( () -> {
-            BlockingQueue<String> queue = new ArrayBlockingQueue<String>(131072);
+//            BlockingQueue<String> queue = new ArrayBlockingQueue<String>(131072);
+            BlockingQueue<String> queue = new ArrayBlockingQueue<>(MAX);
 //            CopyOnWriteArrayList<String> arrayList = new CopyOnWriteArrayList<String>();
             Thread thread = new Thread(new ReaderThread(queue, "Results/states.txt"));
             thread.start();
@@ -35,20 +39,22 @@ public class BooleanFunction {
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());
             }
-//            System.out.println(queue);
+//            System.out.println(queue.size());
 
             ArrayList<Integer> tempPower = new ArrayList<>();
             for (String t : Integer.toBinaryString(power).split("")) {
                 tempPower.add(Integer.parseInt(t));
             }
 //            System.out.println(tempPower);
-            BlockingQueue<String> results = new ArrayBlockingQueue<>(131072);
+//            BlockingQueue<String> results = new ArrayBlockingQueue<>(131072);
+            BlockingQueue<String> results = new ArrayBlockingQueue<>(MAX);
             for (String s : queue) {
                 try {
                     State state = new State(queue.take());
                     state = State.power(state, tempPower);
                     StringBuilder temp = new StringBuilder(state.toString());
-                    while (temp.length() < 17) {
+//                    while (temp.length() < 17) {
+                    while (temp.length() < n) {
                         temp.insert(0, '0');
                     }
                     results.add(s + " " + temp.toString());
@@ -79,14 +85,18 @@ public class BooleanFunction {
     public static int calculatePropagationRate(String fileName, int n) {
         ArrayList<String> arrayList = new CoordinateFunction(fileName, 1).getArrayList();
         int result = 0;
-        for (int i = 0; i < 131072; i++) {
+//        for (int i = 0; i < 131072; i++) {
+        for (int i = 0; i < MAX; i++) {
             String u1;
 //            System.out.println(CoordinateFunction.getBinaryValue(i, 17));
 //            System.out.println("n = " + n);
-            if (CoordinateFunction.getBinaryValue(i, 17).charAt(n) == '1') {
-                u1 = CoordinateFunction.replace(CoordinateFunction.getBinaryValue(i, 17), n, '0');
+//            if (CoordinateFunction.getBinaryValue(i, 17).charAt(n) == '1') {
+            if (CoordinateFunction.getBinaryValue(i, BooleanFunction.n).charAt(n) == '1') {
+//                u1 = CoordinateFunction.replace(CoordinateFunction.getBinaryValue(i, 17), n, '0');
+                u1 = CoordinateFunction.replace(CoordinateFunction.getBinaryValue(i, BooleanFunction.n), n, '0');
             } else {
-                u1 = CoordinateFunction.replace(CoordinateFunction.getBinaryValue(i, 17), n, '1');
+//                u1 = CoordinateFunction.replace(CoordinateFunction.getBinaryValue(i, 17), n, '1');
+                u1 = CoordinateFunction.replace(CoordinateFunction.getBinaryValue(i, BooleanFunction.n), n, '1');
             }
             String temp = CoordinateFunction.additionByMod(arrayList.get(i), arrayList.get(Integer.parseInt(u1, 2)));
             result += CoordinateFunction.getWeight(temp);
@@ -152,7 +162,8 @@ public class BooleanFunction {
 
     public static double calculateDifferentialProbability(String a, String b, ArrayList<String> arrayList) {
         int result = 0;
-        for (int i = 0; i < 131072; i++) {
+//        for (int i = 0; i < 131072; i++) {
+        for (int i = 0; i < MAX; i++) {
             if (KroneckerDelta(Derivative(CoordinateFunction.getBinaryValue(i, 17), a, arrayList), b)) {
                 result++;
             }
@@ -163,9 +174,11 @@ public class BooleanFunction {
     public static double maxDifferentialProbability(String fileName) {
         CoordinateFunction coordinateFunction = new CoordinateFunction(fileName, 1);
         double max = 0;
-        for (int i = 0; i < 131072; i++) {
+//        for (int i = 0; i < 131072; i++) {
+        for (int i = 0; i < MAX; i++) {
             System.out.println("i = " + i);
-            for (int j = 0; j < 131072; j++) {
+//            for (int j = 0; j < 131072; j++) {
+            for (int j = 0; j < MAX; j++) {
                 double temp = calculateDifferentialProbability(CoordinateFunction.getBinaryValue(i, 17), CoordinateFunction.getBinaryValue(j, 17), coordinateFunction.getArrayList());
                 if (temp > max) {
                     max = temp;
@@ -188,6 +201,7 @@ public class BooleanFunction {
         //Розповсюдження помилок
 //        calculateAllPropagationRates("Results/truthTable1.txt", "Results/GeneralAnalysis1.txt", 17);
 //        calculateAllPropagationRates("Results/truthTable2.txt", "Results/GeneralAnalysis2.txt", 17);
+//        calculateAllPropagationRates("Results/Vanya special/truthTable2.txt", "Results/Vanya special/GeneralAnalysis2.txt", 16);
 
         //Відносне відхилення
 //        calculateRelativeDeviation("Results/GeneralAnalysis1.txt");
@@ -195,7 +209,7 @@ public class BooleanFunction {
 
         //
 
-        maxDifferentialProbability("Results/truthTable1.txt");
+//        maxDifferentialProbability("Results/truthTable1.txt");
 
 
     }

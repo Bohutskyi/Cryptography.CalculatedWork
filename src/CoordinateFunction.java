@@ -9,6 +9,9 @@ import java.util.concurrent.BlockingQueue;
 public class CoordinateFunction {
 
     private static final int n = 17;
+//    private static final int n = 16;
+    private static final int MAX = 131072;
+//    private static final int MAX = 65536;
 
 //    private CopyOnWriteArrayList<String> arrayList = new CopyOnWriteArrayList<>();
     private String fileName;
@@ -21,7 +24,8 @@ public class CoordinateFunction {
 //    public CoordinateFunction(String fileName) {
     public CoordinateFunction(String fileName, int k) {
         this.fileName = fileName;
-        BlockingQueue<String> queue = new ArrayBlockingQueue<>(131072);
+//        BlockingQueue<String> queue = new ArrayBlockingQueue<>(131072);
+        BlockingQueue<String> queue = new ArrayBlockingQueue<>(MAX);
         Thread thread = new Thread(new ReaderThread(queue, fileName));
         thread.start();
         try {
@@ -58,11 +62,14 @@ public class CoordinateFunction {
         for (int i = 0; i < this.arrayList.size(); i++) {
             booleanArrayList.add(true);
         }
-        for (int i = 0; i < 17; i++) {
+        for (int i = 0; i < n; i++) {
+//        for (int i = 0; i < 17; i++) {
             System.out.println("i = " + i);
-            for (int j = 0; j < 131072; j++) {
+//            for (int j = 0; j < 131072; j++) {
+            for (int j = 0; j < MAX; j++) {
                 if (booleanArrayList.get(j)) {
-                    String u0 = getBinaryValue(j, 17);
+//                    String u0 = getBinaryValue(j, 17);
+                    String u0 = getBinaryValue(j, n);
                     String u1;
                     boolean isOnes;
                     if (u0.charAt(i) == '1') {
@@ -93,7 +100,8 @@ public class CoordinateFunction {
 //        System.out.println(arrayList);
 
         Thread thread = new Thread(new WriterThread( () -> {
-            BlockingQueue<String> queue = new ArrayBlockingQueue<>(131072);
+//            BlockingQueue<String> queue = new ArrayBlockingQueue<>(131072);
+            BlockingQueue<String> queue = new ArrayBlockingQueue<>(MAX);
             for (int i = 0; i < result.size(); i++) {
                 try {
                     queue.put(arrayList.get(i) + " " + result.get(i));
@@ -120,10 +128,13 @@ public class CoordinateFunction {
             result.add((int) Math.pow(-1, Integer.parseInt(arrayList.get(i), 2)));
             booleanArrayList.add(true);
         }
-        for (int i = 0; i < 17; i++) {
-            for (int j = 0; j < 131072; j++) {
+//        for (int i = 0; i < 17; i++) {
+        for (int i = 0; i < n; i++) {
+//            for (int j = 0; j < 131072; j++) {
+            for (int j = 0; j < MAX; j++) {
                 if (booleanArrayList.get(j)) {
-                    String u0 = getBinaryValue(j ,17);
+//                    String u0 = getBinaryValue(j ,17);
+                    String u0 = getBinaryValue(j ,n);
                     String u1;
                     boolean isOnes;
                     if (u0.charAt(i) == '1') {
@@ -279,7 +290,8 @@ public class CoordinateFunction {
                 }
             }
 //            System.out.println("max = " + max);
-            results.add((int) Math.pow(2, 16) - max / 2);
+//            results.add((int) Math.pow(2, 16) - max / 2);
+            results.add((int) Math.pow(2, 15) - max / 2);
         }
         return results;
     }
@@ -317,16 +329,20 @@ public class CoordinateFunction {
 
     public int calculatePropagationRate(int i) {
         int result = 0;
-        for (int j = 0; j < 131072; j++) {
+//        for (int j = 0; j < 131072; j++) {
+        for (int j = 0; j < MAX; j++) {
             //f(x)
             String temp = (arrayList.get(j));
 
             //set x + ei
             String vector;
-            if (getBinaryValue(j, 17).charAt(i) == '1') {
-                vector = replace(getBinaryValue(j, 17), i, '0');
+//            if (getBinaryValue(j, 17).charAt(i) == '1') {
+            if (getBinaryValue(j, n).charAt(i) == '1') {
+//                vector = replace(getBinaryValue(j, 17), i, '0');
+                vector = replace(getBinaryValue(j, n), i, '0');
             } else {
-                vector = replace(getBinaryValue(j, 17), i, '1');
+//                vector = replace(getBinaryValue(j, 17), i, '1');
+                vector = replace(getBinaryValue(j, n), i, '1');
             }
 
             //f(x) + f(x+ei)
@@ -422,7 +438,8 @@ public class CoordinateFunction {
     }
 
     private static int f(int i, ArrayList<String> arrayList) {
-        for (int k = 0; k < 131072; k++) {
+//        for (int k = 0; k < 131072; k++) {
+        for (int k = 0; k < MAX; k++) {
             if (getWeight(k) == (i + 1)) {
                 if (!arrayList.get(k).equals("0")) {
                     return i;
@@ -451,11 +468,13 @@ public class CoordinateFunction {
     }
 
     public static int[] getAlgebraicDegree(String fileName) {
-        return f2(17, new CoordinateFunction(fileName, 1).arrayList);
+//        return f2(17, new CoordinateFunction(fileName, 1).arrayList);
+        return f2(16, new CoordinateFunction(fileName, 1).arrayList);
     }
 
     private static int[] f2(int n, ArrayList<String> arrayList) {
-        for (int i = 0; i < 131072; i++) {
+//        for (int i = 0; i < 131072; i++) {
+        for (int i = 0; i < MAX; i++) {
             if (getWeight(i) == n) {
                 if (arrayList.get(i).equals("1")) {
                     return new int [] {n, i};
@@ -486,7 +505,9 @@ public class CoordinateFunction {
     public static void main(String[] args) {
         //Для обчлення АНФ
 //        String fileName = "Results/BooleanFunction1/CoordinateFunction";
+//        String fileName = "Results/Vanya special/BooleanFunction1/CoordinateFunction";
 //        for (int i = 1; i <= 17; i++) {
+//        for (int i = 1; i <= 16; i++) {
 //            StringBuilder s = new StringBuilder(fileName);
 //            s.append(i);
 //            s.append(".txt");
@@ -508,16 +529,19 @@ public class CoordinateFunction {
 
         //Обчислення дисбалансу
 //        calculateHadamardCoefficient("Results/BooleanFunction1/CoordinateFunction", 17, "Results/BooleanFunction1/Imbalance1.txt");
+//        calculateHadamardCoefficient("Results/Vanya special/BooleanFunction2/CoordinateFunction", 16, "Results/Vanya special/BooleanFunction1/Imbalance2.txt");
 //        calculateHadamardCoefficient("Results/BooleanFunction2/CoordinateFunction", 17, "Results/BooleanFunction2/Imbalance2.txt");
 
         //Обчислення коефи уолша
 //        AllFastConversionWalsh("Results/BooleanFunction1/CoordinateFunction", 17);
 //        AllFastConversionWalsh("Results/BooleanFunction2/CoordinateFunction", 17);
+//        AllFastConversionWalsh("Results/Vanya special/BooleanFunction1/CoordinateFunction", 16);
 
 //        System.out.println(calculateNonlinearity("Results/BooleanFunction1/CoordinateFunction", 17));
         //Обчислення нелінійностей
 //        calculateAllNonlinearlities("Results/BooleanFunction1/Imbalance1.txt", "Results/BooleanFunction1/CoordinateFunction", 17);
 //        calculateAllNonlinearlities("Results/BooleanFunction2/Imbalance2.txt", "Results/BooleanFunction2/CoordinateFunction", 17);
+//        calculateAllNonlinearlities("Results//Vanya special/BooleanFunction1/Imbalance1.txt", "Results/Vanya special/BooleanFunction1/CoordinateFunction", 16);
 
 //        CoordinateFunction coordinateFunction = new CoordinateFunction("Results/BooleanFunction1/CoordinateFunction1.txt");
 //        coordinateFunction.calculatePropagationRate(0);
@@ -526,15 +550,18 @@ public class CoordinateFunction {
         //Обчислення коефів розповсюдження помилок
 //        calculateAllPropagationRatesForAllFunctions("Results/BooleanFunction1/CoordinateFunction", "Results/BooleanFunction1/PropagationRates1.txt");
 //        calculateAllPropagationRatesForAllFunctions("Results/BooleanFunction2/CoordinateFunction", "Results/BooleanFunction2/PropagationRates2.txt");
+//        calculateAllPropagationRatesForAllFunctions("Results/Vanya special/BooleanFunction1/CoordinateFunction", "Results/Vanya special/BooleanFunction1/PropagationRates1.txt");
 
         //Обчислення відносного відхилення
 //        calculateAllRelativeDeviations("Results/BooleanFunction1/PropagationRates1.txt", "Results/BooleanFunction1/PropagationRates1.txt");
 //        calculateAllRelativeDeviations("Results/BooleanFunction2/PropagationRates2.txt", "Results/BooleanFunction2/PropagationRates2.txt");
+//        calculateAllRelativeDeviations("Results/Vanya special/BooleanFunction1/PropagationRates1.txt", "Results/Vanya special/BooleanFunction1/PropagationRates1.txt");
 
 //        System.out.println(getCorrelationImmunityLevel("Results/BooleanFunction1/CoordinateFunction1.txt"));
         //обчислення кореляційного імунітету
 //        calculateAllCorrelationImmunityLevel("Results/BooleanFunction1/CoordinateFunction", "Results/BooleanFunction1/CorrelationImmunityLevel1.txt", 17);
 //        calculateAllCorrelationImmunityLevel("Results/BooleanFunction2/CoordinateFunction", "Results/BooleanFunction2/CorrelationImmunityLevel2.txt", 17);
+//        calculateAllCorrelationImmunityLevel("Results/Vanya special/BooleanFunction1/CoordinateFunction", "Results/Vanya special/BooleanFunction1/CorrelationImmunityLevel1.txt", 16);
 
 //        System.out.println(getAlgebraicDegree("Results/BooleanFunction1/CoordinateFunction1.txt"));
 //        for (int i : getAlgebraicDegree("Results/BooleanFunction1/CoordinateFunction1.txt")) {
@@ -543,6 +570,7 @@ public class CoordinateFunction {
         //Алгебраїчні степені
 //        calculateAllAlgebraicDegrees("Results/BooleanFunction1/CoordinateFunction", "Results/BooleanFunction1/AlgebraicDegrees1.txt", 17);
 //        calculateAllAlgebraicDegrees("Results/BooleanFunction2/CoordinateFunction", "Results/BooleanFunction2/AlgebraicDegrees2.txt", 17);
+//        calculateAllAlgebraicDegrees("Results/Vanya special/BooleanFunction1/CoordinateFunction", "Results/Vanya special/BooleanFunction1/AlgebraicDegrees1.txt", 16);
 
     }
 

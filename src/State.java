@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class State {
 
     private static final int m = 18;
+//    private static final int m = 17;
     private static final ArrayList<Integer> generator;
 
     private ArrayList<Integer> array;
@@ -15,6 +16,11 @@ public class State {
         generator.set(0, 1);
         generator.set(14, 1);
         generator.set(17, 1);
+//        generator.set(0, 1);
+//        generator.set(4, 1);
+//        generator.set(13, 1);
+//        generator.set(15, 1);
+//        generator.set(16, 1);
     }
 
     public State(String s) {
@@ -238,8 +244,8 @@ public class State {
         while (result.array.size() >= generator.size()) {
 //            System.out.println("result = " + result);
             result = sub(result, new State(generator));
-//            System.out.println(result);
-            while (result.array.get(0) == 0) {
+//            System.out.println(result );
+            while (result.array.get(0) == 0 && result.array.size() > 1) {
                 result.array.remove(0);
             }
 //            System.out.println(result);

@@ -10,6 +10,9 @@ import java.util.concurrent.BlockingQueue;
  * */
 public class CoordinateFunctionRecognizer {
 
+    private static final int n = 17;
+    private static final int MAX = 131072;
+
     public static void readAllCoordinateFunctions(String sourceFileName, String destinationFileName, int n) {
         for (int i = 0; i < n; i++) {
             StringBuilder temp = new StringBuilder();
@@ -21,7 +24,7 @@ public class CoordinateFunctionRecognizer {
     }
 
     public static void readCoordinateFunction(String sourceFileName, String destinationFileName, int n, int i) {
-        BlockingQueue<String> queue = new ArrayBlockingQueue<>(131072);
+        BlockingQueue<String> queue = new ArrayBlockingQueue<>(MAX);
         ReaderThread readerThread = new ReaderThread(queue, sourceFileName);
         Thread thread = new Thread(readerThread);
         thread.start();
@@ -32,10 +35,11 @@ public class CoordinateFunctionRecognizer {
         }
 
         new Thread(new WriterThread( () -> {
-            BlockingQueue<String> temp = new ArrayBlockingQueue<String>(131072);
-            for (int j = 0; j < 131072; j++) {
+            BlockingQueue<String> temp = new ArrayBlockingQueue<String>(MAX);
+            for (int j = 0; j < MAX; j++) {
                 try {
-                    char c = queue.take().charAt(i + 18);
+                    char c = queue.take().charAt(i + (n + 1));
+//                    char c = queue.take().charAt(i + 17);
                     temp.add(c + "");
                 } catch (InterruptedException e) {
                     System.out.println(e.getMessage());
