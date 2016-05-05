@@ -1,12 +1,9 @@
-import convert.Convert;
-import threadStream.Actionable;
+import FileComparison.FileComparison;
 import threadStream.ReaderThread;
 import threadStream.WriterThread;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.*;
 
 public class BooleanFunction {
@@ -15,6 +12,8 @@ public class BooleanFunction {
     //    private static final int n = 16;
     private static final int MAX = 131072;
 //    private static final int MAX = 65536;
+
+    private static int currentMax = 0;
 
     private final int power;
     private String fileName;
@@ -142,29 +141,19 @@ public class BooleanFunction {
         return CoordinateFunction.additionByMod(temp, temp2);
     }
 
-    public void maxDifferentialProbability(String fileName, String destination) {
+    public int maxDifferentialProbability(String fileName) {
         ArrayList<String> arrayList = new CoordinateFunction(fileName, 1).getArrayList();
-        int[] results = new int[MAX];
-        for (int i = 0; i < MAX; i++) {
-            results[i] = 0;
-        }
-        ExecutorService executor = Executors.newFixedThreadPool(25);
+//        ExecutorService executor = Executors.newFixedThreadPool(25);
+        ExecutorService executor = Executors.newFixedThreadPool(10);
         for (int a = 1; a < MAX; a++) {
-//        for (int a = 1; a < 1000; a++) {
-            executor.submit(new Task(a, results, arrayList));
+            executor.submit(new Task(a, arrayList));
         }
 
         executor.shutdown();
         while (!executor.isTerminated()) {
         }
         System.out.println("Done");
-        try (FileWriter writer = new FileWriter(destination)) {
-            for (int i = 0; i < MAX; i++) {
-                writer.write(CoordinateFunction.getBinaryValue(i, n) + " " + results[i] + "\n");
-            }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+        return currentMax;
     }
 
     public static void main(String[] args) {
@@ -187,9 +176,47 @@ public class BooleanFunction {
 //        calculateRelativeDeviation("Results/GeneralAnalysis2.txt");
 
 //        maxDifferentialProbability("Results/truthTable1.txt");
-        BooleanFunction booleanFunction = new BooleanFunction(n, "Results/truthTable1.txt");
-        booleanFunction.maxDifferentialProbability("Results/truthTable1.txt", "Results/DifferentialProbability1111.txt");
+//        BooleanFunction booleanFunction = new BooleanFunction(n, "Results/truthTable1.txt");
+//        System.out.println(booleanFunction.maxDiffere0000000000000000000000000000000000000000000000000000000001ntialProbability("Results/truthTable1.txt", "Results/DifferentialProbability1.txt"));
+        //2
+//        System.out.println(booleanFunction.maxDifferentialProbability("Results/truthTable2.txt", "Results/DifferentialProbability2.txt"));
+//        2
 
+//        System.out.println(calculateSum("Results/DifferentialProbability1.txt", 1));
+//        System.out.println(calculateSum("Results/DifferentialProbability111.txt", 1));
+//        System.out.println(findMax("Results/DifferentialProbability1.txt", 1));
+//        FileComparison comparison = new FileComparison("Results/DifferentialProbability1111.txt", "Results/DifferentialProbability111.txt");
+//        new Thread(comparison).start();
+
+    }
+
+    private static int findMax(String fileName, int n) {
+        int max = 0;
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String buffer;
+            while ((buffer = reader.readLine()) != null) {
+                int result = Integer.parseInt(buffer.split(" ")[n]);
+                if (result > max) {
+                    max = result;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return max;
+    }
+
+    private static long calculateSum(String fileName, int n) {
+        long result = 0;
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String buffer;
+            while ((buffer = reader.readLine()) != null) {
+                result += Integer.parseInt(buffer.split(" ")[n]);
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return result;
     }
 
 
@@ -198,19 +225,31 @@ public class BooleanFunction {
         private int[] map;
         private ArrayList<String> arrayList;
 
-        Task(int a, int[] map, ArrayList<String> arrayList) {
+        Task(int a, ArrayList<String> arrayList) {
             this.a = a;
-            this.map = map;
             this.arrayList = arrayList;
         }
 
         @Override
         public void run() {
+            this.map = new int[MAX];
+            for (int i = 0; i < MAX; i++) {
+                map[i] = 0;
+            }
             if (a % 1000 == 0) {
                 System.out.println("a = " + a);
             }
             for (int x = 0; x < MAX; x++) {
                 map[Integer.parseInt(Derivative(x, a, arrayList), 2)]++;
+            }
+            int max = 0;
+            for (int i = 0; i < MAX; i++) {
+                if (map[i] > max) {
+                    max = map[i];
+                }
+            }
+            if (currentMax < max) {
+                currentMax = max;
             }
         }
     }
