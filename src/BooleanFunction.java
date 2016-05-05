@@ -5,19 +5,19 @@ import threadStream.WriterThread;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.*;
 
 public class BooleanFunction {
 
     private static final int n = 17;
-//    private static final int n = 16;
+    //    private static final int n = 16;
     private static final int MAX = 131072;
 //    private static final int MAX = 65536;
 
     private final int power;
     private String fileName;
-//    private static final int m = 17;
 
     public BooleanFunction(int power, String fileName) {
         this.power = power;
@@ -26,12 +26,9 @@ public class BooleanFunction {
 
     //Обчислення таблиці істиності
     //f(x) = x ^ power mod p(x)
-    //?????
     public void calculateTruthTable() {
-        new Thread(new WriterThread(( () -> {
-//            BlockingQueue<String> queue = new ArrayBlockingQueue<String>(131072);
+        new Thread(new WriterThread((() -> {
             BlockingQueue<String> queue = new ArrayBlockingQueue<>(MAX);
-//            CopyOnWriteArrayList<String> arrayList = new CopyOnWriteArrayList<String>();
             Thread thread = new Thread(new ReaderThread(queue, "Results/states.txt"));
             thread.start();
             try {
@@ -39,21 +36,17 @@ public class BooleanFunction {
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());
             }
-//            System.out.println(queue.size());
 
             ArrayList<Integer> tempPower = new ArrayList<>();
             for (String t : Integer.toBinaryString(power).split("")) {
                 tempPower.add(Integer.parseInt(t));
             }
-//            System.out.println(tempPower);
-//            BlockingQueue<String> results = new ArrayBlockingQueue<>(131072);
             BlockingQueue<String> results = new ArrayBlockingQueue<>(MAX);
             for (String s : queue) {
                 try {
                     State state = new State(queue.take());
                     state = State.power(state, tempPower);
                     StringBuilder temp = new StringBuilder(state.toString());
-//                    while (temp.length() < 17) {
                     while (temp.length() < n) {
                         temp.insert(0, '0');
                     }
@@ -63,13 +56,8 @@ public class BooleanFunction {
                 }
             }
 
-
-
-//            return queue;
             return results;
-//            return arrayList;
-//            return null;
-        } ), fileName)).start();
+        }), fileName)).start();
     }
 
     private void write(String s, FileWriter fileWriter) {
@@ -85,17 +73,11 @@ public class BooleanFunction {
     public static int calculatePropagationRate(String fileName, int n) {
         ArrayList<String> arrayList = new CoordinateFunction(fileName, 1).getArrayList();
         int result = 0;
-//        for (int i = 0; i < 131072; i++) {
         for (int i = 0; i < MAX; i++) {
             String u1;
-//            System.out.println(CoordinateFunction.getBinaryValue(i, 17));
-//            System.out.println("n = " + n);
-//            if (CoordinateFunction.getBinaryValue(i, 17).charAt(n) == '1') {
             if (CoordinateFunction.getBinaryValue(i, BooleanFunction.n).charAt(n) == '1') {
-//                u1 = CoordinateFunction.replace(CoordinateFunction.getBinaryValue(i, 17), n, '0');
                 u1 = CoordinateFunction.replace(CoordinateFunction.getBinaryValue(i, BooleanFunction.n), n, '0');
             } else {
-//                u1 = CoordinateFunction.replace(CoordinateFunction.getBinaryValue(i, 17), n, '1');
                 u1 = CoordinateFunction.replace(CoordinateFunction.getBinaryValue(i, BooleanFunction.n), n, '1');
             }
             String temp = CoordinateFunction.additionByMod(arrayList.get(i), arrayList.get(Integer.parseInt(u1, 2)));
@@ -154,38 +136,35 @@ public class BooleanFunction {
         return true;
     }
 
-    public static String Derivative(String x, String a, ArrayList<String> arrayList) {
-        String temp = arrayList.get(Integer.parseInt(x, 2));
-        String temp2 = arrayList.get(Integer.parseInt(CoordinateFunction.additionByMod(x, a), 2));
+    private static String Derivative(int x, int a, ArrayList<String> arrayList) {
+        String temp = arrayList.get(x);
+        String temp2 = arrayList.get(x ^ a);
         return CoordinateFunction.additionByMod(temp, temp2);
     }
 
-    public static double calculateDifferentialProbability(String a, String b, ArrayList<String> arrayList) {
-        int result = 0;
-//        for (int i = 0; i < 131072; i++) {
+    public void maxDifferentialProbability(String fileName, String destination) {
+        ArrayList<String> arrayList = new CoordinateFunction(fileName, 1).getArrayList();
+        int[] results = new int[MAX];
         for (int i = 0; i < MAX; i++) {
-            if (KroneckerDelta(Derivative(CoordinateFunction.getBinaryValue(i, 17), a, arrayList), b)) {
-                result++;
-            }
+            results[i] = 0;
         }
-        return result * 1. / Math.pow(2, n);
-    }
+        ExecutorService executor = Executors.newFixedThreadPool(25);
+        for (int a = 1; a < MAX; a++) {
+//        for (int a = 1; a < 1000; a++) {
+            executor.submit(new Task(a, results, arrayList));
+        }
 
-    public static double maxDifferentialProbability(String fileName) {
-        CoordinateFunction coordinateFunction = new CoordinateFunction(fileName, 1);
-        double max = 0;
-//        for (int i = 0; i < 131072; i++) {
-        for (int i = 0; i < MAX; i++) {
-            System.out.println("i = " + i);
-//            for (int j = 0; j < 131072; j++) {
-            for (int j = 0; j < MAX; j++) {
-                double temp = calculateDifferentialProbability(CoordinateFunction.getBinaryValue(i, 17), CoordinateFunction.getBinaryValue(j, 17), coordinateFunction.getArrayList());
-                if (temp > max) {
-                    max = temp;
-                }
-            }
+        executor.shutdown();
+        while (!executor.isTerminated()) {
         }
-        return max;
+        System.out.println("Done");
+        try (FileWriter writer = new FileWriter(destination)) {
+            for (int i = 0; i < MAX; i++) {
+                writer.write(CoordinateFunction.getBinaryValue(i, n) + " " + results[i] + "\n");
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public static void main(String[] args) {
@@ -207,11 +186,32 @@ public class BooleanFunction {
 //        calculateRelativeDeviation("Results/GeneralAnalysis1.txt");
 //        calculateRelativeDeviation("Results/GeneralAnalysis2.txt");
 
-        //
-
 //        maxDifferentialProbability("Results/truthTable1.txt");
-
+        BooleanFunction booleanFunction = new BooleanFunction(n, "Results/truthTable1.txt");
+        booleanFunction.maxDifferentialProbability("Results/truthTable1.txt", "Results/DifferentialProbability1111.txt");
 
     }
 
+
+    private class Task implements Runnable {
+        private int a;
+        private int[] map;
+        private ArrayList<String> arrayList;
+
+        Task(int a, int[] map, ArrayList<String> arrayList) {
+            this.a = a;
+            this.map = map;
+            this.arrayList = arrayList;
+        }
+
+        @Override
+        public void run() {
+            if (a % 1000 == 0) {
+                System.out.println("a = " + a);
+            }
+            for (int x = 0; x < MAX; x++) {
+                map[Integer.parseInt(Derivative(x, a, arrayList), 2)]++;
+            }
+        }
+    }
 }

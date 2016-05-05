@@ -13,7 +13,6 @@ public class CoordinateFunction {
     private static final int MAX = 131072;
 //    private static final int MAX = 65536;
 
-//    private CopyOnWriteArrayList<String> arrayList = new CopyOnWriteArrayList<>();
     private String fileName;
     private ArrayList<String> arrayList = new ArrayList<>();
 
@@ -21,10 +20,8 @@ public class CoordinateFunction {
         this(fileName, 0);
     }
 
-//    public CoordinateFunction(String fileName) {
     public CoordinateFunction(String fileName, int k) {
         this.fileName = fileName;
-//        BlockingQueue<String> queue = new ArrayBlockingQueue<>(131072);
         BlockingQueue<String> queue = new ArrayBlockingQueue<>(MAX);
         Thread thread = new Thread(new ReaderThread(queue, fileName));
         thread.start();
@@ -35,20 +32,8 @@ public class CoordinateFunction {
         }
         arrayList = new ArrayList<>(queue);
         for (int i = 0; i < arrayList.size(); i++ ){
-//            arrayList.set(i, arrayList.get(i).split("")[0]);
             arrayList.set(i, arrayList.get(i).split(" ")[k]);
         }
-//        for (int i = 0; i < queue.size(); i++) {
-//            try {
-//                System.out.print(queue.take());
-//                arrayList.add(queue.take().trim().split("")[0]);
-//                System.out.print(queue.take().trim().split("")[0]);
-//            } catch (InterruptedException e) {
-//                System.out.println(e.getMessage());
-//            }
-//        }
-//        System.out.println("here = " + arrayList);
-//        System.out.println("here = " + arrayList.size());
         queue = null;
     }
 
@@ -63,12 +48,9 @@ public class CoordinateFunction {
             booleanArrayList.add(true);
         }
         for (int i = 0; i < n; i++) {
-//        for (int i = 0; i < 17; i++) {
             System.out.println("i = " + i);
-//            for (int j = 0; j < 131072; j++) {
             for (int j = 0; j < MAX; j++) {
                 if (booleanArrayList.get(j)) {
-//                    String u0 = getBinaryValue(j, 17);
                     String u0 = getBinaryValue(j, n);
                     String u1;
                     boolean isOnes;
@@ -96,11 +78,8 @@ public class CoordinateFunction {
                 booleanArrayList.set(j, true);
             }
         }
-//        System.out.println(result);
-//        System.out.println(arrayList);
 
         Thread thread = new Thread(new WriterThread( () -> {
-//            BlockingQueue<String> queue = new ArrayBlockingQueue<>(131072);
             BlockingQueue<String> queue = new ArrayBlockingQueue<>(MAX);
             for (int i = 0; i < result.size(); i++) {
                 try {
@@ -128,12 +107,9 @@ public class CoordinateFunction {
             result.add((int) Math.pow(-1, Integer.parseInt(arrayList.get(i), 2)));
             booleanArrayList.add(true);
         }
-//        for (int i = 0; i < 17; i++) {
         for (int i = 0; i < n; i++) {
-//            for (int j = 0; j < 131072; j++) {
             for (int j = 0; j < MAX; j++) {
                 if (booleanArrayList.get(j)) {
-//                    String u0 = getBinaryValue(j ,17);
                     String u0 = getBinaryValue(j ,n);
                     String u1;
                     boolean isOnes;
@@ -289,9 +265,9 @@ public class CoordinateFunction {
                     max = Math.abs(k);
                 }
             }
-//            System.out.println("max = " + max);
 //            results.add((int) Math.pow(2, 16) - max / 2);
-            results.add((int) Math.pow(2, 15) - max / 2);
+            results.add((int) Math.pow(2, (n - 1)) - max / 2);
+//            results.add((int) Math.pow(2, 15) - max / 2);
         }
         return results;
     }
@@ -329,19 +305,15 @@ public class CoordinateFunction {
 
     public int calculatePropagationRate(int i) {
         int result = 0;
-//        for (int j = 0; j < 131072; j++) {
         for (int j = 0; j < MAX; j++) {
             //f(x)
             String temp = (arrayList.get(j));
 
             //set x + ei
             String vector;
-//            if (getBinaryValue(j, 17).charAt(i) == '1') {
             if (getBinaryValue(j, n).charAt(i) == '1') {
-//                vector = replace(getBinaryValue(j, 17), i, '0');
                 vector = replace(getBinaryValue(j, n), i, '0');
             } else {
-//                vector = replace(getBinaryValue(j, 17), i, '1');
                 vector = replace(getBinaryValue(j, n), i, '1');
             }
 
@@ -438,7 +410,6 @@ public class CoordinateFunction {
     }
 
     private static int f(int i, ArrayList<String> arrayList) {
-//        for (int k = 0; k < 131072; k++) {
         for (int k = 0; k < MAX; k++) {
             if (getWeight(k) == (i + 1)) {
                 if (!arrayList.get(k).equals("0")) {
@@ -469,11 +440,11 @@ public class CoordinateFunction {
 
     public static int[] getAlgebraicDegree(String fileName) {
 //        return f2(17, new CoordinateFunction(fileName, 1).arrayList);
-        return f2(16, new CoordinateFunction(fileName, 1).arrayList);
+//        return f2(16, new CoordinateFunction(fileName, 1).arrayList);
+        return f2(n, new CoordinateFunction(fileName, 1).arrayList);
     }
 
     private static int[] f2(int n, ArrayList<String> arrayList) {
-//        for (int i = 0; i < 131072; i++) {
         for (int i = 0; i < MAX; i++) {
             if (getWeight(i) == n) {
                 if (arrayList.get(i).equals("1")) {
